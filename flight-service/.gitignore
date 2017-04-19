@@ -1,3 +1,7 @@
+build/**
+.gradle/**
+lib/**
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
