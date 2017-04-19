@@ -1,0 +1,27 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: flight-service
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    # enable H2 web console and set url for web console
+    # http://localhost:8080/console
+    h2:
+      console:
+        enabled: true
+        path: /console
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  # Thymeleaf
+  thymeleaf:
+    cache: false
+
+hibernate:
+  dialect: org.hibernate.dialect.H2Dialect
