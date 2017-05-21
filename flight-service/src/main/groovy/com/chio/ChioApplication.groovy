@@ -2,6 +2,7 @@ package com.chio
 
 import com.chio.data.repository.FlightRequestRepository
 import com.chio.model.FlightRequest
+import com.chio.util.AirlineReservation
 import groovy.util.logging.Slf4j
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
@@ -51,6 +52,10 @@ public class ChioApplication {
 			log.info(userTrip.toString());
 		}
 		log.info("");
+
+		AirlineReservation airlineReservation = new AirlineReservation()
+
+		airlineReservation.getFlightOptions()
 	}
 
 }
