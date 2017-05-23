@@ -1,5 +1,3 @@
-general:
-  build_dir: trip-service
 machine:
   timezone:
     America/Los_Angeles
@@ -10,6 +8,7 @@ machine:
     TERM: dumb
 
 general:
+  build_dir: trip-service
   branches:
     only:
       - develop # only build/deploy from develop
