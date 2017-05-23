@@ -4,8 +4,6 @@ machine:
   java:
     version:
       oraclejdk8
-  environment:
-    TERM: dumb
 
 general:
   build_dir: trip-service
