@@ -4,6 +4,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
@@ -11,9 +12,13 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
 
-group 'com.chio'
-version =  '0.0.1-SNAPSHOT'
+group 'mattchiogioji'
+
+jar {
+    baseName = 'trip-service'
+}
 
 repositories {
     mavenCentral()
@@ -49,4 +54,16 @@ dependencies {
 
 springBoot {
     mainClass = "com.chio.ChioApplication"
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = true
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
 }

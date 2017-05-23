@@ -18,6 +18,11 @@ class TripController {
 
     TripController(){}
 
+    @GetMapping
+    String helloWorld() {
+        return "Hello Docker World!"
+    }
+
     @PostMapping
     @ResponseBody
     ResponseEntity<Trip> create(@RequestBody Trip trip) {
