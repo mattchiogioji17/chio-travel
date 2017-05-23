@@ -1,3 +1,5 @@
+general:
+  build_dir: trip-service
 machine:
   timezone:
     America/Los_Angeles
