@@ -14,8 +14,9 @@ general:
     - "build/reports/tests" # preserve the generated HTML test reports
 
 test:
-  override:
+  pre:
     - chmod +x gradlew
+  override:
     - ./gradlew test -s
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
