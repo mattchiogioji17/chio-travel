@@ -1,5 +1,6 @@
 package com.chio.util
 
+import com.chio.data.entity.Trip
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.http.HttpTransport
 import com.google.api.client.json.JsonFactory
@@ -7,10 +8,10 @@ import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.qpxExpress.QPXExpress
 import com.google.api.services.qpxExpress.QPXExpressRequestInitializer
 import com.google.api.services.qpxExpress.model.*
+import org.springframework.stereotype.Service
 
-public class AirlineReservation {
-
-
+@Service
+class QpxUtil {
     private static final String APPLICATION_NAME = "MyFlightApplication";
 
     private static final String API_KEY = "AIzaSyCYQEnveuROoXuFSoqMsavSiAz3ggIVXko";
@@ -21,10 +22,10 @@ public class AirlineReservation {
     /** Global instance of the JSON factory. */
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
-    void getFlightOptions() {
+    static List<TripOption> getFlightOptions(Trip trip) {
 
         try {
-            TripOptionsRequest tripOptionsRequest = createTripsOptionsRequest()
+            TripOptionsRequest tripOptionsRequest = createTripsOptionsRequest(trip)
 
             httpTransport = GoogleNetHttpTransport.newTrustedTransport();
             TripsSearchRequest tripsSearchRequest = new TripsSearchRequest();
@@ -78,9 +79,7 @@ public class AirlineReservation {
                             System.out.println("durationleg "+durationLeg);
                             int mil= leg.get(l).getMileage();
                             System.out.println("Milleage "+mil);
-
                         }
-
                     }
                 }
 
@@ -92,26 +91,25 @@ public class AirlineReservation {
                 }
 
             }
-            return;
+            return tripResults
         } catch (IOException e) {
             System.err.println(e.getMessage());
         } catch (Throwable t) {
             t.printStackTrace();
         }
         System.exit(1);
-
     }
 
-    private static TripOptionsRequest createTripsOptionsRequest() {
+    private static TripOptionsRequest createTripsOptionsRequest(Trip trip) {
         PassengerCounts passengers = new PassengerCounts();
         passengers.setAdultCount(1);
 
         List<SliceInput> slices = new ArrayList<SliceInput>();
 
         SliceInput slice = new SliceInput();
-        slice.setOrigin("NYC");
-        slice.setDestination("LGA");
-        slice.setDate("2017-05-29");
+        slice.setOrigin(trip.getOrigin())
+        slice.setDestination(trip.getDestination())
+        slice.setDate(trip.getDate())
         slices.add(slice);
 
         TripOptionsRequest request = new TripOptionsRequest();
@@ -120,4 +118,5 @@ public class AirlineReservation {
         request.setSlice(slices);
         request
     }
+
 }

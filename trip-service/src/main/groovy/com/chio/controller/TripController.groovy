@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @Slf4j
-@RequestMapping(value="/trip", produces = "application/json")
+@RequestMapping(value="/trip-service", produces = "application/json")
 class TripController {
 
     @Autowired

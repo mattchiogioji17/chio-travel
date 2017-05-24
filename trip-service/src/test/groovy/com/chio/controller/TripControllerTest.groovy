@@ -18,6 +18,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @Slf4j
 class TripControllerTest extends Specification {
 
+    public static final String TRIP_SERVICE_BASE_URL = "/trip-service"
     def jsonSlurper = new JsonSlurper()
 
     Trip trip
@@ -36,13 +37,13 @@ class TripControllerTest extends Specification {
         mockMvc = standaloneSetup(tripController).setControllerAdvice().build()
     }
 
-    def "Happy Path: Flight Request created"() {
-        given: "A POST is made to the createFlightRequest endpoint"
+    def "Happy Path: Trip created"() {
+        given: "A POST is made to the createTrip endpoint"
             trip = new Trip(userId: 1, origin: "TPA", destination: "NYC", date: "2017-06-01")
             requestBody = new ObjectMapper().writeValueAsString(trip)
             tripDao.create(_ as Trip) >> trip
         when:
-            def response = mockMvc.perform(post("/trip").content(requestBody)
+            def response = mockMvc.perform(post(TRIP_SERVICE_BASE_URL).content(requestBody)
                     .contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse()
             log.info(">>response: ${response.getContentAsString()}")
             def responseBody = jsonSlurper.parseText(response.getContentAsString())
@@ -53,12 +54,12 @@ class TripControllerTest extends Specification {
             assert responseBody.origin == "TPA"
     }
 
-    def "Happy Path: Get Flight Request by UserId and TripId"() {
+    def "Happy Path: Get Trip by UserId and TripId"() {
         given:
             trip = new Trip(id: 1, userId: 1, origin: "TPA", destination: "NYC")
             tripDao.findByIdAndUserId(_, _) >> trip
         when:
-            def response = mockMvc.perform(get("/trip/user/{userId}/trip/{id}",
+            def response = mockMvc.perform(get("$TRIP_SERVICE_BASE_URL/user/{userId}/trip/{id}",
                     1, 1)).andReturn().getResponse()
             log.info(">>response: ${response.getContentAsString()}")
 

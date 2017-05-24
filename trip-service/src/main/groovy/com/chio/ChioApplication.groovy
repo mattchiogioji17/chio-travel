@@ -25,9 +25,9 @@ public class ChioApplication {
 	@Bean
 	public CommandLineRunner demo(TripRepository repository) {
 		// save a couple of customers
-		repository.save(new Trip(id: 1, userId: 1, origin: "TPA", destination: "NYC"));
-		repository.save(new Trip(id: 2, userId: 2, origin: "MIA", destination: "ATL"));
-		repository.save(new Trip(id: 3, userId: 1, origin: "BWI", destination: "DEN"));
+		repository.save(new Trip(id: 1, userId: 1, origin: "TPA", destination: "NYC", date: "2017-08-01"));
+		repository.save(new Trip(id: 2, userId: 2, origin: "MIA", destination: "ATL", date: "2017-08-01"));
+		repository.save(new Trip(id: 3, userId: 1, origin: "BWI", destination: "DEN", date: "2017-08-01"));
 
 		// fetch all customers
 		log.info("Trips found with findAll():");
@@ -52,9 +52,6 @@ public class ChioApplication {
 		}
 		log.info("");
 
-		//AirlineReservation airlineReservation = new AirlineReservation()
-
-		//airlineReservation.getFlightOptions()
 	}
 
 }

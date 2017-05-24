@@ -4,6 +4,7 @@ lib/**
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
+!gradle-wrapper.jar
 
 ### STS ###
 .apt_generated
