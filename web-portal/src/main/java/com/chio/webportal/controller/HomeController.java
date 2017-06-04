@@ -48,13 +48,11 @@ public class HomeController {
 
         if(userService.checkUserExists(user.getUsername(), user.getEmail()))  {
 
-            if (userService.checkEmailExists(user.getEmail())) {
+            if (userService.checkEmailExists(user.getEmail()))
                 model.addAttribute("emailExists", true);
-            }
 
-            if (userService.checkUsernameExists(user.getUsername())) {
+            if (userService.checkUsernameExists(user.getUsername()))
                 model.addAttribute("usernameExists", true);
-            }
 
             return "signup";
         } else {
